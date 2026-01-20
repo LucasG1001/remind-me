@@ -1,21 +1,22 @@
-package com.example.remember_me.domain.valueObjects.User;
+package com.example.remember_me.domain.user.valueObjects;
 
+import com.example.remember_me.domain.validators.BetweenLengthValidator;
 import com.example.remember_me.domain.validators.MatchesValidator;
-import com.example.remember_me.domain.validators.MaxLengthValidator;
-import com.example.remember_me.domain.validators.NotNullValidator;
+import com.example.remember_me.domain.validators.NotEmptyValidator;
 import com.example.remember_me.domain.validators.ValidationComposite;
 import com.example.remember_me.domain.validators.Validator;
 
-public record Email(String value) {
-    private static final String FIELD_NAME = "Email";
+public record UserName(String value) {
+
+    private static final String FIELD_NAME = "UserName";
     private static final Validator<String> VALIDATOR = ValidationComposite.of(
-            new NotNullValidator(FIELD_NAME),
-            new MaxLengthValidator(255, FIELD_NAME),
+            new NotEmptyValidator(FIELD_NAME),
+            new BetweenLengthValidator(FIELD_NAME, 3, 30),
             new MatchesValidator(FIELD_NAME, "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"));
 
-    public Email {
+    public UserName {
         VALIDATOR.validate(value);
-        value = value.toLowerCase();
+        value = value.trim();
     }
 
     @Override

@@ -3,10 +3,9 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import Toast from "react-native-toast-message";
 
 export type User = {
-  id: string;
   name: string;
   email: string;
-  photo?: string;
+  accessToken: string;
 };
 
 type AuthContextData = {
