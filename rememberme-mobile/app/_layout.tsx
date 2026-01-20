@@ -12,6 +12,12 @@ import { useColorScheme } from "@/hooks/use-color-scheme";
 import { SQLiteProvider } from "expo-sqlite";
 import Toast from "react-native-toast-message";
 import initializeDatabase from "./database/initializeDatabase";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+
+GoogleSignin.configure({
+  webClientId:
+    "1070241853118-mo10j6ifpdatfii99strovb37qiirkjn.apps.googleusercontent.com",
+});
 
 export const unstable_settings = {
   anchor: "(tabs)",

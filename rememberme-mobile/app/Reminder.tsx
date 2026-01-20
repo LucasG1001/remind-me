@@ -5,23 +5,37 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useEffect, useState } from "react";
 import { Calendar } from "react-native-calendars";
-import useReminderDatabase, {
-  ReminderDatabase,
-} from "../database/useReminderDatabase";
+import { ReminderDatabase } from "./database/useReminderDatabase";
 
-export default function HomeScreen() {
+export default function Reminder() {
   const router = useRouter();
-  const [remiders, setReminders] = useState<ReminderDatabase[]>([]);
-  const { get } = useReminderDatabase();
+  //   const [remiders, setReminders] = useState<ReminderDatabase[]>([]);
 
-  useEffect(() => {
-    const getReminders = async () => {
-      const reminders = await get();
-      setReminders(reminders);
-    };
+  //   useEffect(() => {
+  //     const getReminders = async () => {
+  //       const reminders = await get();
+  //       setReminders(reminders);
+  //     };
 
-    getReminders();
-  }, []);
+  //     getReminders();
+  //   }, []);
+
+  const data: ReminderDatabase[] = [
+    {
+      title: "Aniversario",
+      description: "",
+      active: 1,
+      type: "",
+      id: 1,
+    },
+    {
+      title: "Consulta",
+      description: "",
+      active: 1,
+      type: "",
+      id: 1,
+    },
+  ];
 
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -48,7 +62,7 @@ export default function HomeScreen() {
 
       <View style={{ flex: 1 }}>
         <FlatList
-          data={remiders.slice(0, 3)}
+          data={data}
           keyExtractor={(item) => String(item.id)}
           contentContainerStyle={{ padding: 16, gap: 12 }}
           renderItem={({ item }) => (
@@ -74,7 +88,7 @@ export default function HomeScreen() {
         style={styles.fab}
         onPress={() => router.push("/ReminderForm")}
       >
-        <ThemedText style={styles.fabText}>Nome Lembrete</ThemedText>
+        <ThemedText style={styles.fabText}>Novo Lembrete</ThemedText>
       </Pressable>
     </ThemedView>
   );
