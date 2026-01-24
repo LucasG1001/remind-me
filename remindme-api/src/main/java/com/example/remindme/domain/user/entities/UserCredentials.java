@@ -1,8 +1,9 @@
 package com.example.remindme.domain.user.entities;
 
-import com.example.remindme.domain.user.enums.AuthProvider;
 import java.util.Objects;
 import java.util.UUID;
+
+import com.example.remindme.domain.user.enums.AuthProvider;
 
 public final class UserCredentials {
 
@@ -61,5 +62,9 @@ public final class UserCredentials {
 
     public String getPasswordHash() {
         return passwordHash;
+    }
+
+    public boolean isLocalProvider() {
+        return AuthProvider.LOCAL.equals(this.provider);
     }
 }

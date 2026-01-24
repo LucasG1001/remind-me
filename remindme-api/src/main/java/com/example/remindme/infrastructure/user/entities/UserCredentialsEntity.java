@@ -1,9 +1,16 @@
-package com.example.remindme.infrastructure.user;
+package com.example.remindme.infrastructure.user.entities;
 
 import com.example.remindme.domain.user.enums.AuthProvider;
 import com.example.remindme.infrastructure.shared.BaseEntity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

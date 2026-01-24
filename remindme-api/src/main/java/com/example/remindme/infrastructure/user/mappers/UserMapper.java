@@ -1,13 +1,13 @@
 package com.example.remindme.infrastructure.user.mappers;
 
+import java.util.stream.Collectors;
+
 import com.example.remindme.domain.user.entities.User;
 import com.example.remindme.domain.user.entities.UserCredentials;
 import com.example.remindme.domain.user.valueObjects.Email;
 import com.example.remindme.domain.user.valueObjects.UserName;
-import com.example.remindme.infrastructure.user.UserCredentialsEntity;
-import com.example.remindme.infrastructure.user.UserEntity;
-
-import java.util.stream.Collectors;
+import com.example.remindme.infrastructure.user.entities.UserCredentialsEntity;
+import com.example.remindme.infrastructure.user.entities.UserEntity;
 
 public class UserMapper {
 
@@ -36,12 +36,25 @@ public class UserMapper {
     }
 
     public static UserEntity toEntity(User user) {
-        var entity = new UserEntity(user.getId(), user.getUserName().toString(), user.getEmail().toString(),
-                user.getRole());
+        var entity = new UserEntity();
+        entity.setUserName(user.getUserName().toString());
+        entity.setEmail(user.getEmail().toString());
+        entity.setRole(user.getRole());
+
+        var credentialsEntities = user.getCredentials().stream()
+                .map(UserMapper::toCredentialsEntity)
+                .collect(Collectors.toList());
+
+        entity.setCredentials(credentialsEntities);
+
         return entity;
     }
 
-    private static UserCredentialsEntity toEntity(User user, UserCredentials credentials) {
-        return new UserCredentialsEntity();
+    private static UserCredentialsEntity toCredentialsEntity(UserCredentials credentials) {
+        var entity = new UserCredentialsEntity();
+        entity.setProvider(credentials.getProvider());
+        entity.setProviderId(credentials.getProviderId());
+        entity.setPasswordHash(credentials.getPasswordHash());
+        return entity;
     }
 }

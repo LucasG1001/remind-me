@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.remindme.domain.user.entities.User;
+import com.example.remindme.domain.user.entities.UserCredentials;
 import com.example.remindme.domain.user.enums.UserRole;
 
 import lombok.Getter;
@@ -33,7 +34,11 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getCredentials().getPasswordHash();
+        return user.getCredentials().stream()
+                .filter(UserCredentials::isLocalProvider)
+                .findFirst()
+                .map(UserCredentials::getPasswordHash)
+                .orElse(null);
     }
 
     @Override
