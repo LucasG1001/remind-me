@@ -3,6 +3,7 @@ package com.example.remindme.domain.user.entities;
 import java.util.List;
 import java.util.UUID;
 
+import com.example.remindme.domain.user.enums.AuthProvider;
 import com.example.remindme.domain.user.enums.UserRole;
 import com.example.remindme.domain.user.valueObjects.Email;
 import com.example.remindme.domain.user.valueObjects.UserName;
@@ -40,5 +41,9 @@ public class User {
 
     public List<UserCredentials> getCredentials() {
         return credentials;
+    }
+
+    public boolean isRegisteredWith(AuthProvider provider) {
+        return credentials.stream().anyMatch(credentials -> credentials.getProvider() == provider);
     }
 }
