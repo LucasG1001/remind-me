@@ -21,17 +21,8 @@ import io.jsonwebtoken.Jwts;
 @Component
 public class JwtTokenProvider implements TokenProvider {
 
-  @Value("${jwt.secret}")
-  private String jwtSecret;
-
   @Value("${jwt.expiration-ms}")
   private int jwtExpirationMs;
-
-  @Value("${jwt.refresh-expiration-ms}")
-  private int jwtRefreshExpirationMs;
-
-  @Value("${jwt.confirmation-expiration-ms}")
-  private int jwtConfirmationTokenExpirationMs;
 
   @Value("${jwt.secret}")
   private String secretkey;
@@ -43,14 +34,6 @@ public class JwtTokenProvider implements TokenProvider {
 
   public String generateAccessToken(User user) {
     return tokenBuilder(user, DateUtil.addMillisecondsToNow(jwtExpirationMs));
-  }
-
-  public String generateConfirmationToken(User user) {
-    return tokenBuilder(user, DateUtil.addMillisecondsToNow(jwtConfirmationTokenExpirationMs));
-  }
-
-  public String generateRefreshToken(User user) {
-    return tokenBuilder(user, DateUtil.addMillisecondsToNow(jwtRefreshExpirationMs));
   }
 
   public String getUsernameFromToken(String token) {

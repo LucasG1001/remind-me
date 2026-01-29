@@ -1,4 +1,4 @@
 package com.example.remindme.application.auth.dtos;
 
-public record GoogleUserDTO(String username, String email) {
+public record GoogleUserDTO(String id, String username, String email) {
 }
